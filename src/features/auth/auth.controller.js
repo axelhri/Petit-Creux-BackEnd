@@ -1,6 +1,8 @@
 import { StatusCodes } from "http-status-codes";
 import * as usersService from "../users/users.service.js";
 import { UnauthenticatedError } from "../../errors/index.js";
+import { formatImage } from "../../middlewares/multer.middleware.js";
+import { v2 as cloudinary } from "cloudinary";
 
 const register = async (req, res) => {
   const user = await usersService.create(req.body);
