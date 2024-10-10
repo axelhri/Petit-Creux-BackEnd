@@ -3,6 +3,10 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const UserSchema = new Schema({
+  image: {
+    type: String,
+    required: [true, "Veuillez fournir un nom"],
+  },
   name: {
     type: String,
     required: [true, "Veuillez fournir un nom"],
