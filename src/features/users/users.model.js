@@ -3,10 +3,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const UserSchema = new Schema({
-  image: {
-    type: String,
-    required: [true, "Veuillez fournir un nom"],
-  },
   name: {
     type: String,
     required: [true, "Veuillez fournir un nom"],
@@ -15,7 +11,7 @@ const UserSchema = new Schema({
   },
   email: {
     type: String,
-    required: [true, "Veuillez founir un email"],
+    required: [true, "Veuillez fournir un email"],
     unique: true,
     match: [
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -27,18 +23,17 @@ const UserSchema = new Schema({
     required: [true, "Veuillez fournir un mot de passe"],
     minlength: 6,
   },
+  imageUrl: {
+    type: String, // Ajout de l'URL de l'image
+    required: true,
+  },
 });
 
 UserSchema.pre("save", async function () {
-  const salt = await bcrypt.genSalt();
+  if (!this.isModified("password")) return;
+  const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
-
-UserSchema.methods.toJSON = function () {
-  let userObject = this.toObject();
-  delete userObject.password;
-  return userObject;
-};
 
 UserSchema.methods.createAccessToken = function () {
   return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, {
@@ -47,8 +42,7 @@ UserSchema.methods.createAccessToken = function () {
 };
 
 UserSchema.methods.comparePasswords = async function (candidatePassword) {
-  const isMatch = await bcrypt.compare(candidatePassword, this.password);
-  return isMatch;
+  return bcrypt.compare(candidatePassword, this.password);
 };
 
 export default model("User", UserSchema);

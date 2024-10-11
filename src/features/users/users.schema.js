@@ -1,15 +1,6 @@
 import { z } from "zod";
 
 const RegisterUserSchema = z.object({
-  image: z
-    .string()
-    .url({ message: "Image invalide: doit être une URL valide" }) // If expecting a URL
-    .or(
-      z.string().regex(/^data:image\/(png|jpg|jpeg);base64,/, {
-        message: "Image invalide: doit être une image encodée en base64",
-      })
-    ),
-
   name: z
     .string()
     .trim()
@@ -20,6 +11,10 @@ const RegisterUserSchema = z.object({
     .string()
     .trim()
     .min(6, { message: "Doit avoir au minimum 6 caractères" }),
+  profileImage: z
+    .string()
+    .url({ message: "Image invalide, doit être une URL valide" }) // Valide une URL pour l'image
+    .optional(), // Si vous voulez que l'image soit facultative, sinon enlevez `.optional()`
 });
 
 const LoginUserSchema = z.object({
