@@ -6,7 +6,7 @@ import { RecipeBodySchema, RecipeParamsSchema } from "./recipes.schema.js";
 import * as recipesController from "./recipes.controller.js";
 
 router
-  .route("/")
+  .route("/share")
   .get(recipesController.getUsersRecipes)
   .post(validate({ bodySchema: RecipeBodySchema }), recipesController.create);
 

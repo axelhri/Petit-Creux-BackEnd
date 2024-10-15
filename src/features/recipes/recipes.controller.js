@@ -4,7 +4,7 @@ import { checkPermissions } from "../../utils/checkPermissions.js";
 
 const create = async (req, res) => {
   const createdRecipe = await recipeService.create(req.body, req.user.userId);
-  res.status(StatusCodes.CREATED).json({ job: createdRecipe });
+  res.status(StatusCodes.CREATED).json({ recipe: createdRecipe });
 };
 
 const getUsersRecipes = async (req, res) => {
@@ -22,14 +22,14 @@ const update = async (req, res) => {
   const recipe = await recipeService.get(req.params.id);
   checkPermissions(req.user, recipe.createdBy);
   const updateRecipe = await recipeService.update(req.params.id, req.body);
-  res.status(StatusCodes.OK).json({ job: updateRecipe });
+  res.status(StatusCodes.OK).json({ recipe: updateRecipe });
 };
 
 const remove = async (req, res) => {
   const recipe = await recipeService.get(req.params.id);
   checkPermissions(req.user, recipe.createdBy);
   const removedRecipe = await recipeService.remove(req.params.id);
-  res.status(StatusCodes.OK).json({ job: removedRecipe });
+  res.status(StatusCodes.OK).json({ recipe: removedRecipe });
 };
 
 export { create, get, getUsersRecipes, update, remove };

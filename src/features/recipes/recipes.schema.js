@@ -40,9 +40,6 @@ const RecipeBodySchema = z.object({
   ingredients: z
     .array(IngredientSchema)
     .min(1, "Veuillez fournir au moins un ingrédient"),
-  createdBy: z.string().refine((id) => mongoose.isValidObjectId(id), {
-    message: "Format de l'ID utilisateur invalide",
-  }),
 });
 
 export { RecipeBodySchema, RecipeParamsSchema };
