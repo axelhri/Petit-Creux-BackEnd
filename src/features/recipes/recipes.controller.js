@@ -21,15 +21,15 @@ const get = async (req, res) => {
 const update = async (req, res) => {
   const recipe = await recipeService.get(req.params.id);
   checkPermissions(req.user, recipe.createdBy);
-  const updatedRecipe = await recipeService.update(req.params.id, req.body);
-  res.status(StatusCodes.OK).json({ recipe: updatedRecipe });
+  const updateRecipe = await recipeService.update(req.params.id, req.body);
+  res.status(StatusCodes.OK).json({ job: updateRecipe });
 };
 
 const remove = async (req, res) => {
   const recipe = await recipeService.get(req.params.id);
   checkPermissions(req.user, recipe.createdBy);
   const removedRecipe = await recipeService.remove(req.params.id);
-  res.status(StatusCodes.OK).json({ recipe: removedRecipe });
+  res.status(StatusCodes.OK).json({ job: removedRecipe });
 };
 
 export { create, get, getUsersRecipes, update, remove };

@@ -1,25 +1,44 @@
 import mongoose, { model, Schema } from "mongoose";
+import { INGREDIENTS_UNITS } from "../../utils/constants.js";
+
+const IngredientSchema = new Schema({
+  name: {
+    type: String,
+    required: [true, "Veuillez fournir le nom de l'ingrédient"],
+  },
+  quantity: {
+    type: Number,
+    required: [true, "Veuillez fournir la quantité"],
+  },
+  unit: {
+    type: String,
+    required: [true, "Veuillez fournir une unité"],
+    enum: [
+      INGREDIENTS_UNITS.GRAMMES,
+      INGREDIENTS_UNITS.LITRES,
+      INGREDIENTS_UNITS.TBSP,
+      INGREDIENTS_UNITS.KG,
+      INGREDIENTS_UNITS.MG,
+      INGREDIENTS_UNITS.ML,
+      INGREDIENTS_UNITS.SPOON,
+      INGREDIENTS_UNITS.CUP,
+    ],
+  },
+});
 
 const RecipeSchema = new Schema(
   {
-    recipeImage: {
-      type: String, // Ajout de l'URL de l'image
-      required: true,
-    },
-    recipeTitle: {
+    title: {
       type: String,
       required: [true, "Veuillez fournir un titre"],
-      maxlength: 15,
+      maxlength: 50,
     },
-    recipeDescription: {
+    description: {
       type: String,
-      maxlength: 200,
+      required: [true, "Veuillez fournir une description"],
+      maxlength: 100,
     },
-    ingredients: {
-      type: [String],
-      required: [true, "Veuillez fournir les ingredients"],
-      maxlength: 30,
-    },
+    ingredients: [IngredientSchema],
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "User",

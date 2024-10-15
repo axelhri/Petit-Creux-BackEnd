@@ -1,25 +1,25 @@
-import jobs from './jobs.model.js';
+import recipes from "./recipes.model.js";
 
 const create = (data, id) => {
-  return jobs({ ...data, createdBy: id }).save();
+  return recipes({ ...data, createdBy: id }).save();
 };
 
-const getUsersjobs = (id) => {
-  return jobs.find({ createdBy: id });
+const getUsersrecipes = (id) => {
+  return recipes.find({ createdBy: id });
 };
 
 const get = (id) => {
-  return jobs.findById(id);
+  return recipes.findById(id);
 };
 
 const remove = (id) => {
-  return jobs.findByIdAndDelete(id);
+  return recipes.findByIdAndDelete(id);
 };
 
 const update = (id, data) => {
-  return jobs.findByIdAndUpdate(id, data, {
+  return recipes.findByIdAndUpdate(id, data, {
     new: true,
   });
 };
 
-export { create, getUsersjobs, get, remove, update };
+export { create, getUsersrecipes, get, remove, update };

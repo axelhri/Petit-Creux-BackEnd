@@ -1,1 +1,1 @@
-export { default as recipes } from "./recipes.route";
+export { default as recipes } from "./recipes.route.js";
