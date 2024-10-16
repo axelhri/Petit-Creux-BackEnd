@@ -31,12 +31,8 @@ const IngredientSchema = z.object({
 });
 
 const RecipeBodySchema = z.object({
-  title: z.string().trim().min(1, "Veuillez fournir un titre").max(50),
-  description: z
-    .string()
-    .trim()
-    .min(1, "Veuillez fournir une description")
-    .max(100),
+  title: z.string().trim().min(1, "Veuillez fournir un titre"),
+  description: z.string().trim().min(1, "Veuillez fournir une description"),
   ingredients: z
     .array(IngredientSchema)
     .min(1, "Veuillez fournir au moins un ingrédient"),
