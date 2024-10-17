@@ -44,6 +44,11 @@ const RecipeSchema = new Schema(
       ref: "User",
       required: [true, "Veuillez fournir un utilisateur"],
     },
+    imageUrl: {
+      // Ajoutez ce champ
+      type: String,
+      required: false, // Rendre optionnel si nécessaire
+    },
   },
   { timestamps: true }
 );

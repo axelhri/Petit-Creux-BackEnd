@@ -23,6 +23,10 @@ const UserSchema = new Schema({
     required: [true, "Veuillez fournir un mot de passe"],
     minlength: 6,
   },
+  imageUrl: {
+    type: String, // Ajout de l'URL de l'image
+    required: true,
+  },
 });
 
 UserSchema.pre("save", async function () {

@@ -34,7 +34,6 @@ const register = async (req, res) => {
 
     // Créer un token JWT
     const token = user.createAccessToken();
-
     res.status(StatusCodes.CREATED).json({ user, token });
   } catch (error) {
     throw new UnauthenticatedError("Erreur lors de l'inscription");

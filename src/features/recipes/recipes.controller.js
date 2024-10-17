@@ -1,10 +1,41 @@
 import { StatusCodes } from "http-status-codes";
 import * as recipeService from "./recipes.service.js";
 import { checkPermissions } from "../../utils/checkPermissions.js";
+import cloudinary from "../../config/cloudinary.config.js";
+import { dataUri } from "../../middlewares/multer.config.js";
 
 const create = async (req, res) => {
-  const createdRecipe = await recipeService.create(req.body, req.user.userId);
-  res.status(StatusCodes.CREATED).json({ recipe: createdRecipe });
+  let imageUrl = req.body.imageUrl || "";
+
+  if (req.file) {
+    console.log(req.file);
+    const file = dataUri(req.file).content;
+
+    try {
+      const cloudinaryResponse = await cloudinary.uploader.upload(file, {
+        folder: "recipes-images",
+      });
+      imageUrl = cloudinaryResponse.secure_url;
+      console.log(cloudinaryResponse);
+    } catch (error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        msg: "Error uploading image to Cloudinary",
+        error: error.message,
+      });
+    }
+  }
+
+  try {
+    const createdRecipe = await recipeService.create(
+      { ...req.body, imageUrl },
+      req.user.userId
+    );
+    res.status(StatusCodes.CREATED).json({ recipe: createdRecipe });
+  } catch (error) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      msg: error.message || "Error creating recipe",
+    });
+  }
 };
 
 const getUsersRecipes = async (req, res) => {

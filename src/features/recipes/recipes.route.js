@@ -1,14 +1,19 @@
+// recipes.route.js
 import express from "express";
 const router = express.Router();
 import validate from "../../middlewares/validation.middleware.js";
 import { RecipeBodySchema, RecipeParamsSchema } from "./recipes.schema.js";
-
 import * as recipesController from "./recipes.controller.js";
+import { multerUploads } from "../../middlewares/multer.config.js"; // Importez la configuration Multer
 
 router
   .route("/")
   .get(recipesController.getUsersRecipes)
-  .post(validate({ bodySchema: RecipeBodySchema }), recipesController.create);
+  .post(
+    multerUploads.single("image"), // Middleware pour gérer le téléchargement d'une image
+    validate({ bodySchema: RecipeBodySchema }),
+    recipesController.create
+  );
 
 router
   .route("/:id")

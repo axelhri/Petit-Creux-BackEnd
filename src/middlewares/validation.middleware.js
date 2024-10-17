@@ -1,19 +1,19 @@
-import { z } from 'zod';
-import { StatusCodes } from 'http-status-codes';
+import { z } from "zod";
+import { StatusCodes } from "http-status-codes";
 
 const validate =
   ({ bodySchema, paramsSchema }) =>
   (req, res, next) => {
     try {
-      if (bodySchema) {
-        const parsedBody = bodySchema.parse(req.body);
-        req.body = parsedBody;
-      }
+      // if (bodySchema) {
+      //   const parsedBody = bodySchema.parse(req.body);
+      //   req.body = parsedBody;
+      // }
 
-      if (paramsSchema) {
-        const parsedParams = paramsSchema.parse(req.params);
-        req.params = parsedParams;
-      }
+      // if (paramsSchema) {
+      //   const parsedParams = paramsSchema.parse(req.params);
+      //   req.params = parsedParams;
+      // }
 
       next();
     } catch (error) {
