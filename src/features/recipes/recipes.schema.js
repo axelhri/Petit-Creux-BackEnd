@@ -19,8 +19,11 @@ const IngredientSchema = z.object({
       INGREDIENTS_UNITS.KG,
       INGREDIENTS_UNITS.MG,
       INGREDIENTS_UNITS.ML,
+      INGREDIENTS_UNITS.CL,
       INGREDIENTS_UNITS.SPOON,
       INGREDIENTS_UNITS.CUP,
+      INGREDIENTS_UNITS.PINCH,
+      INGREDIENTS_UNITS.PIECE,
     ],
     {
       errorMap: () => ({
@@ -37,6 +40,7 @@ const RecipeBodySchema = z.object({
     .array(IngredientSchema)
     .min(1, "Veuillez fournir au moins un ingrédient"),
   imageUrl: z.string().url({ message: "URL d'image invalide" }).optional(), // Champ optionnel pour l'URL de l'image
+  eaters: z.number().positive("Veuillez fournir le nombre de personne"),
 });
 
 export { RecipeBodySchema, RecipeParamsSchema };

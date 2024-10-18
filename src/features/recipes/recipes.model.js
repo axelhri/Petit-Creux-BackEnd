@@ -20,8 +20,11 @@ const IngredientSchema = new Schema({
       INGREDIENTS_UNITS.KG,
       INGREDIENTS_UNITS.MG,
       INGREDIENTS_UNITS.ML,
+      INGREDIENTS_UNITS.CL,
       INGREDIENTS_UNITS.SPOON,
       INGREDIENTS_UNITS.CUP,
+      INGREDIENTS_UNITS.PINCH,
+      INGREDIENTS_UNITS.PIECE,
     ],
   },
 });
@@ -48,6 +51,10 @@ const RecipeSchema = new Schema(
       // Ajoutez ce champ
       type: String,
       required: false, // Rendre optionnel si nécessaire
+    },
+    eaters: {
+      type: Number,
+      required: [true, "Veuillez fournir la nombre de personne"],
     },
   },
   { timestamps: true }
