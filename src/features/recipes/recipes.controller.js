@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import * as recipeService from "./recipes.service.js";
-import { checkPermissions } from "../../utils/checkPermissions.js";
+// import { checkPermissions } from "../../utils/checkPermissions.js";
 import cloudinary from "../../config/cloudinary.config.js";
 import { dataUri } from "../../middlewares/multer.config.js";
 
@@ -45,7 +45,7 @@ const getUsersRecipes = async (req, res) => {
 
 const get = async (req, res) => {
   const recipe = await recipeService.get(req.params.id);
-  checkPermissions(req.user, recipe.createdBy);
+  // checkPermissions(req.user, recipe.createdBy);
   res.status(StatusCodes.OK).json({ recipe });
 };
 
