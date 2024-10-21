@@ -7,8 +7,18 @@ import { dataUri } from "../../middlewares/multer.config.js";
 const create = async (req, res) => {
   let imageUrl = req.body.imageUrl || "";
 
+  // Si un fichier est présent, vérifier sa taille et uploader sur Cloudinary
   if (req.file) {
     console.log(req.file);
+
+    // Vérifier la taille de l'image (max 5MB = 5 * 1024 * 1024 octets)
+    const maxSize = 5 * 1024 * 1024; // 5 MB en octets
+    if (req.file.size > maxSize) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        msg: "L'image dépasse la taille maximale autorisée de 5 MB",
+      });
+    }
+
     const file = dataUri(req.file).content;
 
     try {
@@ -19,13 +29,14 @@ const create = async (req, res) => {
       console.log(cloudinaryResponse);
     } catch (error) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-        msg: "Error uploading image to Cloudinary",
+        msg: "Erreur lors du téléchargement de l'image sur Cloudinary",
         error: error.message,
       });
     }
   }
 
   try {
+    // Créer la recette avec l'image URL (ou une URL par défaut)
     const createdRecipe = await recipeService.create(
       { ...req.body, imageUrl },
       req.user.userId
@@ -33,7 +44,7 @@ const create = async (req, res) => {
     res.status(StatusCodes.CREATED).json({ recipe: createdRecipe });
   } catch (error) {
     return res.status(StatusCodes.BAD_REQUEST).json({
-      msg: error.message || "Error creating recipe",
+      msg: error.message || "Erreur lors de la création de la recette",
     });
   }
 };

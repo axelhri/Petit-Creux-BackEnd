@@ -15,6 +15,14 @@ const register = async (req, res) => {
       .json({ message: "Veuillez fournir une image de profil" });
   }
 
+  // Vérifier la taille de l'image (max 5MB = 5 * 1024 * 1024 octets)
+  const maxSize = 5 * 1024 * 1024; // 5 MB en octets
+  if (req.file.size > maxSize) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      message: "L'image dépasse la taille maximale autorisée de 5 MB",
+    });
+  }
+
   // Convertir l'image en DataURI
   const file = dataUri(req.file).content;
 
