@@ -1,6 +1,6 @@
 import { z } from "zod";
 import mongoose from "mongoose";
-import { INGREDIENTS_UNITS } from "../../utils/constants.js";
+import { INGREDIENTS_UNITS, CATEGORIES } from "../../utils/constants.js";
 
 const RecipeParamsSchema = z.object({
   id: z.string().refine((id) => mongoose.isValidObjectId(id), {
@@ -41,6 +41,13 @@ const RecipeBodySchema = z.object({
     .min(1, "Veuillez fournir au moins un ingrédient"),
   imageUrl: z.string().url({ message: "URL d'image invalide" }).optional(), // Champ optionnel pour l'URL de l'image
   eaters: z.number().positive("Veuillez fournir le nombre de personne"),
+  categories: z.enum([
+    CATEGORIES.appetizers,
+    CATEGORIES.meal,
+    CATEGORIES.dessert,
+    CATEGORIES.drink,
+    CATEGORIES.lunch,
+  ]),
 });
 
 export { RecipeBodySchema, RecipeParamsSchema };

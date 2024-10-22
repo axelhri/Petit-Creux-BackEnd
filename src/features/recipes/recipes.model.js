@@ -1,5 +1,5 @@
 import mongoose, { model, Schema } from "mongoose";
-import { INGREDIENTS_UNITS } from "../../utils/constants.js";
+import { INGREDIENTS_UNITS, CATEGORIES } from "../../utils/constants.js";
 
 const IngredientSchema = new Schema({
   name: {
@@ -55,6 +55,17 @@ const RecipeSchema = new Schema(
     eaters: {
       type: Number,
       required: [true, "Veuillez fournir la nombre de personne"],
+    },
+    categories: {
+      type: String,
+      required: [true, "Veuillez choisir une catégorie"],
+      enum: [
+        CATEGORIES.appetizers,
+        CATEGORIES.meal,
+        CATEGORIES.dessert,
+        CATEGORIES.drink,
+        CATEGORIES.lunch,
+      ],
     },
   },
   { timestamps: true }

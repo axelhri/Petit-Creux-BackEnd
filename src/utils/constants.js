@@ -12,4 +12,12 @@ const INGREDIENTS_UNITS = {
   PIECE: "pièce",
 };
 
-export { INGREDIENTS_UNITS };
+const CATEGORIES = {
+  appetizers: "entrée",
+  meal: "plat",
+  dessert: "dessert",
+  drink: "boisson",
+  lunch: "petit-déjeuner",
+};
+
+export { INGREDIENTS_UNITS, CATEGORIES };
