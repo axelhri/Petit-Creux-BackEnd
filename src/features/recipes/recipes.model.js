@@ -39,7 +39,6 @@ const RecipeSchema = new Schema(
     description: {
       type: String,
       required: [true, "Veuillez fournir une description"],
-      maxlength: 100,
     },
     ingredients: [IngredientSchema],
     createdBy: {
