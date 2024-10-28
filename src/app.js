@@ -38,6 +38,7 @@ import { StatusCodes } from "http-status-codes";
 
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/recipes", authenticateUser, recipes);
+app.use("/api/v1/recipes/all", recipes);
 
 app.use(notFound);
 app.use(errorHandler);

@@ -22,4 +22,8 @@ const update = (id, data) => {
   });
 };
 
-export { create, getUsersrecipes, get, remove, update };
+const getAll = () => {
+  return recipes.find(); // Fetch all recipes
+};
+
+export { create, getUsersrecipes, get, remove, update, getAll };

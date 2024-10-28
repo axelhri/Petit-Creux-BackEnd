@@ -15,6 +15,8 @@ router
     recipesController.create
   );
 
+router.route("/all").get(recipesController.getAllRecipes);
+
 router
   .route("/:id")
   .get(validate({ paramsSchema: RecipeParamsSchema }), recipesController.get)

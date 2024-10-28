@@ -74,4 +74,16 @@ const remove = async (req, res) => {
   res.status(StatusCodes.OK).json({ recipe: removedRecipe });
 };
 
-export { create, get, getUsersRecipes, update, remove };
+const getAllRecipes = async (req, res) => {
+  try {
+    const recipes = await recipeService.getAll(); // Fetch all recipes
+    res.status(StatusCodes.OK).json({ nbHits: recipes.length, recipes });
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      msg: "Erreur lors de la récupération des recettes",
+      error: error.message,
+    });
+  }
+};
+
+export { create, get, getUsersRecipes, update, remove, getAllRecipes };
