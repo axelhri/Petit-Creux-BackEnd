@@ -50,8 +50,15 @@ const create = async (req, res) => {
 };
 
 const getUsersRecipes = async (req, res) => {
-  const recipes = await recipeService.getUsersrecipes(req.user.userId);
-  res.status(StatusCodes.OK).json({ nbHits: recipes.length, recipes });
+  try {
+    const userId = req.query.createdBy; // Utilisez req.query pour extraire l'ID
+    const recipes = await recipeService.getUsersrecipes(userId);
+    res.status(StatusCodes.OK).json({ nbHits: recipes.length, recipes });
+  } catch (error) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ error: error.message });
+  }
 };
 
 const get = async (req, res) => {
