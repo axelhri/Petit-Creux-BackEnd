@@ -16,14 +16,12 @@ const remove = (id) => {
   return recipes.findByIdAndDelete(id);
 };
 
-const update = (id, data) => {
-  return recipes.findByIdAndUpdate(id, data, {
-    new: true,
-  });
-};
-
 const getAll = () => {
   return recipes.find(); // Fetch all recipes
 };
 
-export { create, getUsersrecipes, get, remove, update, getAll };
+const removeByUserId = (userId) => {
+  return recipes.deleteMany({ createdBy: userId });
+};
+
+export { create, getUsersrecipes, get, remove, getAll, removeByUserId };

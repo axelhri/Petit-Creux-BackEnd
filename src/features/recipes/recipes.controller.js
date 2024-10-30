@@ -67,13 +67,6 @@ const get = async (req, res) => {
   res.status(StatusCodes.OK).json({ recipe });
 };
 
-const update = async (req, res) => {
-  const recipe = await recipeService.get(req.params.id);
-  checkPermissions(req.user, recipe.createdBy);
-  const updateRecipe = await recipeService.update(req.params.id, req.body);
-  res.status(StatusCodes.OK).json({ recipe: updateRecipe });
-};
-
 const remove = async (req, res) => {
   const recipe = await recipeService.get(req.params.id);
   checkPermissions(req.user, recipe.createdBy);
@@ -93,4 +86,4 @@ const getAllRecipes = async (req, res) => {
   }
 };
 
-export { create, get, getUsersRecipes, update, remove, getAllRecipes };
+export { create, get, getUsersRecipes, remove, getAllRecipes };

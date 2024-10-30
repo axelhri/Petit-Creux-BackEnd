@@ -20,4 +20,16 @@ router.post(
 
 router.route("/:id").get(authController.getUser);
 
+router
+  .route("/:id")
+  .get(authController.getUser)
+  .delete(authController.deleteUser); // Ajoutez la méthode DELETE
+
+router.put(
+  "/:id",
+  multerUploads.single("image"), // Middleware Multer pour gérer l'upload d'une seule image
+  validate({ bodySchema: RegisterUserSchema }),
+  authController.updateUser
+);
+
 export default router;

@@ -22,4 +22,6 @@ const LoginUserSchema = z.object({
   password: z.string().trim(),
 });
 
-export { LoginUserSchema, RegisterUserSchema };
+const UpdateUserSchema = RegisterUserSchema.partial();
+
+export { LoginUserSchema, RegisterUserSchema, UpdateUserSchema };
