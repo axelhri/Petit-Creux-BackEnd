@@ -1,5 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import * as usersService from "../users/users.service.js";
+import bcrypt from "bcryptjs";
 import { UnauthenticatedError } from "../../errors/index.js";
 import { dataUri } from "../../middlewares/multer.config.js"; // importer la configuration multer/datauri
 import cloudinary from "../../config/cloudinary.config.js"; // importer la configuration Cloudinary
