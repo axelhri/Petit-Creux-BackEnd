@@ -27,8 +27,3 @@ const remove = (id) => {
 };
 
 export { create, getUsersrecipes, get, update, getAll, remove };
-const removeByUserId = (userId) => {
-  return recipes.deleteMany({ createdBy: userId });
-};
-
-export { create, getUsersrecipes, get, remove, getAll, removeByUserId };
