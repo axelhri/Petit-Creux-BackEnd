@@ -21,13 +21,6 @@ router.route("/all").get(recipesController.getAllRecipes);
 router
   .route("/:id")
   .get(validate({ paramsSchema: RecipeParamsSchema }), recipesController.get)
-  .put(
-    validate({
-      paramsSchema: RecipeParamsSchema,
-      bodySchema: RecipeBodySchema,
-    }),
-    recipesController.update
-  )
   .delete(
     validate({ paramsSchema: RecipeParamsSchema }),
     authenticateUser,
