@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import * as recipeService from "./recipes.service.js";
-// import { checkPermissions } from "../../utils/checkPermissions.js";
+import { checkPermissions } from "../../utils/checkPermissions.js";
 import cloudinary from "../../config/cloudinary.config.js";
 import { dataUri } from "../../middlewares/multer.config.js";
 
@@ -74,13 +74,6 @@ const update = async (req, res) => {
   res.status(StatusCodes.OK).json({ recipe: updateRecipe });
 };
 
-const remove = async (req, res) => {
-  const recipe = await recipeService.get(req.params.id);
-  checkPermissions(req.user, recipe.createdBy);
-  const removedRecipe = await recipeService.remove(req.params.id);
-  res.status(StatusCodes.OK).json({ recipe: removedRecipe });
-};
-
 const getAllRecipes = async (req, res) => {
   try {
     const recipes = await recipeService.getAll(); // Fetch all recipes
@@ -93,4 +86,26 @@ const getAllRecipes = async (req, res) => {
   }
 };
 
-export { create, get, getUsersRecipes, update, remove, getAllRecipes };
+const remove = async (req, res) => {
+  try {
+    const recipe = await recipeService.get(req.params.id);
+    if (!recipe) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ msg: "Recette introuvable" });
+    }
+
+    // Vérifiez si l'utilisateur est autorisé à supprimer
+    checkPermissions(req.user, recipe.createdBy);
+
+    await recipeService.remove(req.params.id);
+    res.status(StatusCodes.OK).json({ msg: "Recette supprimée avec succès" });
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      msg: "Erreur lors de la suppression de la recette",
+      error: error.message,
+    });
+  }
+};
+
+export { create, get, getUsersRecipes, update, getAllRecipes, remove };

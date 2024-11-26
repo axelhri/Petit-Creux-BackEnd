@@ -30,6 +30,7 @@ router
   )
   .delete(
     validate({ paramsSchema: RecipeParamsSchema }),
+    authenticateUser,
     recipesController.remove
   );
 

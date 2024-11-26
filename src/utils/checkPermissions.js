@@ -1,8 +1,5 @@
-// import { UnauthorizedError } from "../errors/index.js";
-
-// const checkPermissions = (requestUser, ressourceUserId) => {
-//   if (requestUser.userId !== ressourceUserId.toString())
-//     throw new UnauthorizedError("Accès à cette route non autorisé");
-// };
-
-// export { checkPermissions };
+export const checkPermissions = (user, resourceOwnerId) => {
+  if (user.role !== "admin" && user.userId !== resourceOwnerId.toString()) {
+    throw new Error("Accès non autorisé");
+  }
+};

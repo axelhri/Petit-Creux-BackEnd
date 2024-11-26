@@ -12,10 +12,6 @@ const get = (id) => {
   return recipes.findById(id);
 };
 
-const remove = (id) => {
-  return recipes.findByIdAndDelete(id);
-};
-
 const update = (id, data) => {
   return recipes.findByIdAndUpdate(id, data, {
     new: true,
@@ -26,4 +22,8 @@ const getAll = () => {
   return recipes.find(); // Fetch all recipes
 };
 
-export { create, getUsersrecipes, get, remove, update, getAll };
+const remove = (id) => {
+  return recipes.findByIdAndDelete(id);
+};
+
+export { create, getUsersrecipes, get, update, getAll, remove };
