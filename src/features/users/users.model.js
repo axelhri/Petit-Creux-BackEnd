@@ -27,6 +27,9 @@ const UserSchema = new Schema({
     type: String, // Ajout de l'URL de l'image
     required: true,
   },
+  bio: {
+    type: String,
+  },
 });
 
 UserSchema.pre("save", async function () {

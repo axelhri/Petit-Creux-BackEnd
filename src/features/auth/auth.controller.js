@@ -106,7 +106,7 @@ const deleteUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { name, email, password } = req.body;
+  const { name, email, bio, password } = req.body;
 
   const isMongoId = mongoose.isValidObjectId(id);
   if (!isMongoId) {
@@ -138,6 +138,7 @@ const updateUser = async (req, res) => {
   const updatedData = {
     name: name || user.name,
     email: email || user.email,
+    bio: bio || user.bio,
     password: password ? await bcrypt.hash(password, 10) : user.password,
     imageUrl,
   };

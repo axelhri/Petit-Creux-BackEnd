@@ -15,6 +15,7 @@ const RegisterUserSchema = z.object({
     .string()
     .url({ message: "Image invalide, doit être une URL valide" }) // Valide une URL pour l'image
     .optional(), // Si vous voulez que l'image soit facultative, sinon enlevez `.optional()`
+  bio: z.string().trim(),
 });
 
 const LoginUserSchema = z.object({
