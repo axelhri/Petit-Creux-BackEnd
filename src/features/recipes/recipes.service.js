@@ -26,4 +26,8 @@ const remove = (id) => {
   return recipes.findByIdAndDelete(id);
 };
 
-export { create, getUsersrecipes, get, update, getAll, remove };
+const removeByUserId = (userId) => {
+  return recipes.deleteMany({ createdBy: userId }); // Supprime toutes les recettes associées à cet utilisateur
+};
+
+export { create, getUsersrecipes, get, update, getAll, remove, removeByUserId };

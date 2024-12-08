@@ -9,6 +9,7 @@ import errorHandler from "./middlewares/error-handler.js";
 import notFound from "./middlewares/not-found.middleware.js";
 import connectDB from "./config/db.config.js";
 import mongooseSanitize from "express-mongo-sanitize";
+import sendEmail from "./features/email/email.controller.js";
 
 connectDB();
 
@@ -37,6 +38,8 @@ import { StatusCodes } from "http-status-codes";
 
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/recipes", recipes);
+
+app.post("/api/v1/emails/send", sendEmail);
 
 app.use(notFound);
 app.use(errorHandler);
