@@ -49,7 +49,7 @@ const RecipeSchema = new Schema(
     imageUrl: {
       // Ajoutez ce champ
       type: String,
-      required: false, // Rendre optionnel si nécessaire
+      required: true, // Rendre optionnel si nécessaire
     },
     eaters: {
       type: Number,
