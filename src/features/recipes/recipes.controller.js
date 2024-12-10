@@ -94,6 +94,17 @@ const remove = async (req, res) => {
         .json({ msg: "Recette introuvable" });
     }
 
+    if (!recipe) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ msg: "Recette introuvable" });
+    }
+
+    if (recipe.imageUrl) {
+      const publicId = recipe.imageUrl.split("/").pop().split(".")[0];
+      await cloudinary.uploader.destroy(`recipes-images/${publicId}`);
+    }
+
     checkPermissions(req.user, recipe.createdBy);
 
     await recipeService.remove(req.params.id);
