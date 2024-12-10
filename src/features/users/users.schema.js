@@ -13,8 +13,7 @@ const RegisterUserSchema = z.object({
     .min(6, { message: "Doit avoir au minimum 6 caractères" }),
   profileImage: z
     .string()
-    .url({ message: "Image invalide, doit être une URL valide" }) // Valide une URL pour l'image
-    .optional(), // Si vous voulez que l'image soit facultative, sinon enlevez `.optional()`
+    .url({ message: "Image invalide, doit être une URL valide" }),
   bio: z.string().trim(),
 });
 

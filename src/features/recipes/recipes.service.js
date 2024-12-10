@@ -12,14 +12,8 @@ const get = (id) => {
   return recipes.findById(id);
 };
 
-const update = (id, data) => {
-  return recipes.findByIdAndUpdate(id, data, {
-    new: true,
-  });
-};
-
 const getAll = () => {
-  return recipes.find(); // Fetch all recipes
+  return recipes.find();
 };
 
 const remove = (id) => {
@@ -27,7 +21,7 @@ const remove = (id) => {
 };
 
 const removeByUserId = (userId) => {
-  return recipes.deleteMany({ createdBy: userId }); // Supprime toutes les recettes associées à cet utilisateur
+  return recipes.deleteMany({ createdBy: userId });
 };
 
-export { create, getUsersrecipes, get, update, getAll, remove, removeByUserId };
+export { create, getUsersrecipes, get, getAll, remove, removeByUserId };

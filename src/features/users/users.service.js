@@ -13,7 +13,7 @@ const getUser = (id) => {
 };
 
 const removeUser = (id) => {
-  return User.findByIdAndDelete(id); // Supprime l'utilisateur par son ID
+  return User.findByIdAndDelete(id);
 };
 
 const updateUser = (id, data) => {

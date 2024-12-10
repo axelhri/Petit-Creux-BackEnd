@@ -24,7 +24,7 @@ const UserSchema = new Schema({
     minlength: 6,
   },
   imageUrl: {
-    type: String, // Ajout de l'URL de l'image
+    type: String,
     required: true,
   },
   bio: {

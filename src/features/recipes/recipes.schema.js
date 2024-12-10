@@ -39,7 +39,7 @@ const RecipeBodySchema = z.object({
   ingredients: z
     .array(IngredientSchema)
     .min(1, "Veuillez fournir au moins un ingrédient"),
-  imageUrl: z.string().url({ message: "URL d'image invalide" }), // Champ optionnel pour l'URL de l'image
+  imageUrl: z.string().url({ message: "URL d'image invalide" }),
   eaters: z.number().positive("Veuillez fournir le nombre de personne"),
   categories: z.enum([
     CATEGORIES.appetizers,

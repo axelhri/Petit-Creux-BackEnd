@@ -47,9 +47,8 @@ const RecipeSchema = new Schema(
       required: [true, "Veuillez fournir un utilisateur"],
     },
     imageUrl: {
-      // Ajoutez ce champ
       type: String,
-      required: true, // Rendre optionnel si nécessaire
+      required: true,
     },
     eaters: {
       type: Number,
