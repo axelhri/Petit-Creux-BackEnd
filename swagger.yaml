@@ -1,0 +1,156 @@
+openapi: 3.0.0
+info:
+  title: Petit Creux
+  version: 1.0.0
+servers:
+  - url: http://{{url}}
+  - url: http://localhost:5000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: User
+  - name: Recipes
+paths:
+  /auth/register:
+    post:
+      tags:
+        - User
+      summary: register
+      requestBody:
+        content: {}
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/login:
+    post:
+      tags:
+        - User
+      summary: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: luffy@gmail.com
+                password: joyboy
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth:
+    get:
+      tags:
+        - User
+      summary: get user
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/671390490dc1fc17b27c04bb:
+    put:
+      tags:
+        - User
+      summary: edit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: luffy
+                email: luffy@gmail.com
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/67558de001ea0f49333e3707:
+    delete:
+      tags:
+        - User
+      summary: delete
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/recipes/public:
+    post:
+      tags:
+        - Recipes
+      summary: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: Chocolate Cake
+                description: A delicious chocolate cake recipe.
+                ingredients:
+                  - name: Flour
+                    quantity: 200
+                    unit: grammes
+                  - name: Sugar
+                    quantity: 100
+                    unit: grammes
+                  - name: Butter
+                    quantity: 150
+                    unit: grammes
+                imageUrl: >-
+                  https://imgs.search.brave.com/_7JzXdeDFAH-C6S3l6zCnG8o4GO1MUOtcLK8y-_JtvY/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9zdG9y/YWdlLmdvb2dsZWFw/aXMuY29tL21lZGlh/LW5ld3Npbml0aWF0/aXZlL2ltYWdlcy9H/TzgwMV9HTklfVmVy/aWZ5aW5nUGhvdG9z/X0NhcmQxX0ltYWdl/MS5vcmlnaW5hbC5q/cGc
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/recipes/userrecipes:
+    get:
+      tags:
+        - Recipes
+      summary: get recipe
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: createdBy
+          in: query
+          schema:
+            type: string
+          example: 671390490dc1fc17b27c04bb
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/recipes:
+    delete:
+      tags:
+        - Recipes
+      summary: delete
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}

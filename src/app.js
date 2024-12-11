@@ -10,6 +10,10 @@ import notFound from "./middlewares/not-found.middleware.js";
 import connectDB from "./config/db.config.js";
 import mongooseSanitize from "express-mongo-sanitize";
 import sendEmail from "./features/email/email.controller.js";
+import swaggerUI from "swagger-ui-express";
+import YAML from "yamljs";
+
+const swaggerDocument = YAML.load("./swagger.yaml");
 
 connectDB();
 
@@ -28,8 +32,11 @@ app.use(mongooseSanitize());
 app.use(cors());
 app.use(express.json());
 
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.get("/", (req, res) => {
-  res.status(StatusCodes.OK).send("<h1>API PETIT CREUX</h1>");
+  res
+    .status(StatusCodes.OK)
+    .send("<h1>API PETIT CREUX</h1><a href='/api-docs'>Documentation</a>");
 });
 
 import { auth } from "./features/auth/index.js";
