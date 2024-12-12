@@ -25,7 +25,9 @@ const UserSchema = new Schema({
   },
   imageUrl: {
     type: String,
-    required: true,
+    required: false,
+    default:
+      "https://res.cloudinary.com/dsoqmhreg/image/upload/v1734000065/avatar_whstza.png",
   },
   bio: {
     type: String,

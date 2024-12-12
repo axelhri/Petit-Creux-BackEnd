@@ -12,37 +12,55 @@ import * as recipeService from "../recipes/recipes.service.js";
 const register = async (req, res) => {
   const { name, email, password } = req.body;
 
-  if (!req.file) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({ message: "Veuillez fournir une image de profil" });
-  }
+  let imageUrl =
+    "https://res.cloudinary.com/dsoqmhreg/image/upload/v1734000065/avatar_whstza.png"; // Default image URL
 
-  const maxSize = 5 * 1024 * 1024;
-  if (req.file.size > maxSize) {
-    return res.status(StatusCodes.BAD_REQUEST).json({
-      message: "L'image dépasse la taille maximale autorisée de 5 MB",
-    });
-  }
+  if (req.file) {
+    const maxSize = 5 * 1024 * 1024;
+    if (req.file.size > maxSize) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: "L'image dépasse la taille maximale autorisée de 5 MB",
+      });
+    }
 
-  const file = dataUri(req.file).content;
+    const file = dataUri(req.file).content;
+
+    try {
+      const cloudinaryResponse = await cloudinary.uploader.upload(file, {
+        folder: "user-profiles",
+      });
+      imageUrl = cloudinaryResponse.secure_url;
+    } catch (error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: "Erreur lors de l'upload de l'image",
+        error: error.message,
+      });
+    }
+  }
 
   try {
-    const cloudinaryResponse = await cloudinary.uploader.upload(file, {
-      folder: "user-profiles",
+    // Log input data for debugging
+    console.log("Creating user with data:", {
+      name,
+      email,
+      password,
+      imageUrl,
     });
 
     const user = await usersService.create({
       name,
       email,
       password,
-      imageUrl: cloudinaryResponse.secure_url,
+      imageUrl,
     });
 
     const token = user.createAccessToken();
     res.status(StatusCodes.CREATED).json({ user, token });
   } catch (error) {
-    throw new UnauthenticatedError("Erreur lors de l'inscription");
+    console.error("Error during user registration:", error); // Log error details
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ message: "Erreur lors de l'inscription", error: error.message });
   }
 };
 
