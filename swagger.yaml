@@ -3,7 +3,7 @@ info:
   title: Petit Creux
   version: 1.0.0
 servers:
-  - url: http://localhost:5000
+  - url: https://petit-creux-backend.onrender.com
 components:
   securitySchemes:
     bearerAuth:
