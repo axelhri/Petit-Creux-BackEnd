@@ -16,7 +16,7 @@ router
     recipesController.create
   );
 
-router.route("/test").get(recipesController.getUsersRecipes);
+router.route("/user").get(recipesController.getUsersRecipes);
 
 router.route("/all").get(recipesController.getAllRecipes);
 
