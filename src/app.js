@@ -29,7 +29,13 @@ app.use(
 );
 app.set("trust proxy", 1);
 app.use(mongooseSanitize());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://petit-creux.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
