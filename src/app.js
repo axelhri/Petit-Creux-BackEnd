@@ -31,7 +31,7 @@ app.set("trust proxy", 1);
 app.use(mongooseSanitize());
 app.use(
   cors({
-    origin: "https://petit-creux.vercel.app",
+    origin: ["https://petit-creux.vercel.app", "http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
